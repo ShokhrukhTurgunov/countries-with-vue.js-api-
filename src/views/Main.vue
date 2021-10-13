@@ -6,19 +6,26 @@
           <input class="search-input" type="search" placeholder="Search for a country…">
       </label>
       <select class="country-select">
-        <option class="country-select-option" value="" v-for="countryName in CountryNames">{{countryName}}</option>
+        <option class="country-select-option" value="" v-for="countryName in CountryNames" :key="countryName">{{countryName}}</option>
       </select>
     </form>
+
+    <CountryCreate/>
   </div>
 </template>
 
 <script>
+import CountryCreate from '@/components/CountryCreate.vue';
   export default {
+     components: {
+      CountryCreate
+    },
     data() {
       return {
         CountryNames: ['Filter by Region', 'Africa', 'America', 'Asia', 'Europe', 'Oceania']
       }
     },
+   
   }
 </script>
 
