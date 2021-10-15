@@ -1,59 +1,32 @@
 <template>
-  <div>
-    <div class="container main-container">
-      <div class="country-box" v-for="country in countriesList.slice(0, 12)" :key="country.id">
-      <img class="country-flag" :src="country.flag" alt="countries-flag" width="264" height="160">
-      <h3 class="country-name">{{ country.name }}</h3>
-      <p class="country-text">Population: <span>{{ country.population }}</span></p>
-      <p class="country-text">Region: <span>{{ country.region }}</span></p>
-      <p class="country-text">Capital: <span>{{ country.capital }}</span></p> 
-    </div>
-    </div>
-  </div>
+      <router-link class="country-router" :to="{name: 'country-page', params: {name: country.name}}">
+      <div class="country-box">
+        
+          <img class="country-flag" :src="country.flag" alt="countries-flag" width="264" height="160">
+          <h3 class="country-name">{{ country.name }}</h3>
+          <p class="country-text">Population: <span>{{ country.population }}</span></p>
+          <p class="country-text">Region: <span>{{ country.region }}</span></p>
+          <p class="country-text">Capital: <span>{{ country.capital }}</span></p> 
+       
+      </div>
+      </router-link>
 </template>
 
 <script>
-import axios from 'axios'
 
   export default {
-    data(){
-      return{
-        countriesList: []
-      }
+    props: {
+      country: {
+        type: Object,
+        required: true 
+      },
     },
-    // methods: {
-    //   getCountries() {
-    //     const country = "https://restcountries.com/v2/all";
-
-    //     fetch(country)
-    //       .then(res => res.json())
-    //       .then(data => {
-    //         return this.countriesList = [...data.slice(0,8)]
-    //       })
-    //     console.log(this.countriesList[0]);
-    //   }
-    // },
-    created() {
-        axios
-          .get('https://restcountries.com/v2/all?limit=8')  // Does a get request
-          .then(response => {
-            this.countriesList = response.data
-            console.log(response.data);
-          })
-          .catch(error => {
-            console.log('There was an error:', error.response) // Logs out the error
-          })
-    }
   }
 </script>
 
 <style scoped>
-.main-container{
-  padding: 0;
-  padding-top: 48px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.country-router{
+  text-decoration: none;
 }
 
 .country-box{
